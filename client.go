@@ -2,8 +2,10 @@
 package bearychat
 
 import (
+	"crypto/tls"
 	"io"
 	"net/http"
+	"time"
 )
 
 type Client struct {
@@ -11,7 +13,14 @@ type Client struct {
 }
 
 func (c Client) Send(message io.Reader) (*http.Response, error) {
-	req := &http.Client{}
+	req := &http.Client{
+		Timeout: time.Second * 30,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
+	}
 	return req.Post(c.Hook, "application/json", message)
 }
 

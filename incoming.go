@@ -19,6 +19,7 @@ type Incoming struct {
 type IncomingAttachment struct {
 	Title  string          `json:"title",omitempty`
 	Text   string          `json:"text",omitempty`
+	Url    string          `json:"url",omitempty`
 	Color  string          `json:"color",omitempty`
 	Images []IncomingImage `json:"images",omitempty`
 }
